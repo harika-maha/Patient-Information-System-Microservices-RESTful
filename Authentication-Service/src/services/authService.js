@@ -2,7 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+
 exports.registerUser = async ({ employeeId,email,username, password, role,firstName,lastName,department }) => {
+
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error('Email already exists');
 
@@ -25,6 +27,10 @@ exports.loginUser = async (email, password) => {
   );
 
   return { token, role: user.role, department: user.department };
+};
+
+exports.validateToken = async (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET);
 };
 
 exports.deleteUser = async (id) => {
