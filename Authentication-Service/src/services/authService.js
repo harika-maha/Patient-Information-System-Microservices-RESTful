@@ -30,6 +30,10 @@ exports.loginUser = async (email, password) => {
   return { token, role: user.role, department: user.department };
 };
 
+exports.validateToken = async (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET);
+};
+
 exports.deleteUser = async (id) => {
   const user = await User.findByIdAndDelete(id);
   if (!user) throw new Error('User not found');

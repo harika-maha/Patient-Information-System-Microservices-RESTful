@@ -19,6 +19,18 @@ exports.register = async (req, res) => {
       res.status(400).json({ message: error.message });
     }
   };
+  exports.validateToken = async (req, res) => {
+    try {
+      const token = req.header('Authorization')?.split(' ')[1];
+      if (!token) {
+        return res.status(401).json({ message: 'Access denied: No token provided' });
+      }
+      const user = await authService.validateToken(token);
+      res.json({ user });
+    } catch (error) {
+      res.status(401).json({ message: 'Invalid or expired token' });
+    }
+  };
 
   exports.deleteUser = async (req, res) => {
     try {
