@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-
-
+const EmailValidator = require('../utils/emailValidator');
 exports.registerUser = async ({ employeeId,email,username, password, role,firstName,lastName,department }) => {
-
+  if (!EmailValidator.validateEmail(email)) {
+    throw new Error('Invalid email format');
+}
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error('Email already exists');
 
