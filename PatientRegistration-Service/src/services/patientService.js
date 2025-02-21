@@ -10,8 +10,15 @@ const getAllPatients = async () => {
   return await Patient.find();
 };
 
+// Get all patients
+const getPatientDetailById = async (id) => {
+  return await Patient.findOne({patientId:id});
+};
+
 
 module.exports = {
   createPatient,
   getAllPatients,
+  getPatientDetailById,
+  
 };

@@ -17,3 +17,13 @@ exports.getAllPatients = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+exports.getPatientById = async (req, res) => {
+  try {
+    const patientId = req.params.id;
+    const patient = await patientService.getPatientDetailById(patientId);
+    res.json(patient);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
