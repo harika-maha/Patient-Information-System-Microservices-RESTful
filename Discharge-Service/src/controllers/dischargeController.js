@@ -14,8 +14,8 @@ const {
       department: req.user.department,
       authHeader: req.headers.authorization
     };
-    
-    const dischargeSummary = await createDischargeSummary(req.body, userData);
+    const patientId = req.params.id
+    const dischargeSummary = await createDischargeSummary(patientId, req.body, userData);
     res.status(201).json(dischargeSummary);
   } catch (error) {
     res.status(400).json({ message: error.message });
