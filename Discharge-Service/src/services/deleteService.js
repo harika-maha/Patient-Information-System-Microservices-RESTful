@@ -1,7 +1,7 @@
 const Discharge = require('../models/dischargeModel');
 
 const deleteDischargeSummary = async (patientId, userId) => {
-  const discharge = await Discharge.find({patientId: patientId});
+  const discharge = await Discharge.findOne({patientId: patientId});
   if (!discharge) {
     throw new Error('Discharge summary not found');
   }
@@ -10,7 +10,7 @@ const deleteDischargeSummary = async (patientId, userId) => {
     throw new Error('Not authorized to delete this discharge summary');
   }
 
-  await Discharge.findByIdAndDelete(dischargeId);
+  await Discharge.findOneAndDelete({patientId: patientId});
   return { message: 'Discharge summary deleted successfully' };
 };
 

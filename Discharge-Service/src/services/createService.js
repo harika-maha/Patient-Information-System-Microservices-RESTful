@@ -24,14 +24,14 @@ const getPatientDetails = async (patientId, authHeader) => {
   }
 };
 
-const createDischargeSummary = async (data, userData) => {
-  const { patientId, homeCarePlan, medications, referrals } = data;
+const createDischargeSummary = async (patientId, data, userData) => {
+  const { homeCarePlan, medications, referrals } = data;
+  // console.log(patientId);
   
   //get patient data from the api call
   const patientData = await getPatientDetails(patientId, userData.authHeader);
 
-  //create new discharge summary
-  const dischargeSummary = new Discharge({
+  const summaryData = {
     patientId,
     patientDetails: {
       firstname: patientData.firstName,
@@ -42,13 +42,18 @@ const createDischargeSummary = async (data, userData) => {
     doctorId: userData.id,
     homeCarePlan,
     medications,
-    status: 'draft',
-    referrals: referrals.map(referral => ({
-      ...referral
-    }))
-  });
+    status: 'draft'
+  }
 
+  const referralsList = Array.isArray(referrals) ? referrals : [];
+  if (referralsList.length > 0) {
+    summaryData.referrals = referralsList.map(referral => ({
+      ...referral
+    }));
+  }
+  //create new discharge summary
   try {
+    const dischargeSummary = new Discharge(summaryData)
     const savedDischargeSummary = await dischargeSummary.save();
     return savedDischargeSummary;
   } catch (error) {

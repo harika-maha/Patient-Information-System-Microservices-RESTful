@@ -1,5 +1,5 @@
 const Discharge = require('../models/dischargeModel');
-const { validateUpdate } = require('../utils/dischargeValidation');
+const { validateDischargeUpdate } = require('../utils/dischargeValidation');
 const { signedStatusValidation } = require('../utils/signedStatusValidation')
 
 const appendReferral = async (patientId, newReferral, userId) => {
@@ -10,7 +10,7 @@ const appendReferral = async (patientId, newReferral, userId) => {
   console.log('User ID:', userId);
   console.log('Doctor ID:', discharge.doctorId);
   signedStatusValidation(discharge);
-  validateUpdate(updateData);
+
   if (discharge.doctorId !== userId) {
     throw new Error('Not authorized to update this discharge summary');
   }
@@ -31,7 +31,7 @@ const updateDischargeSummary = async (patientId, updateData, userId) => {
     throw new Error('Not authorized to update summary');
   }
   signedStatusValidation(discharge);
-  validateUpdate(updateData);
+  validateDischargeUpdate(updateData);
 
   Object.assign(discharge, updateData);
   return await discharge.save();
