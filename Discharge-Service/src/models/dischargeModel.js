@@ -1,9 +1,27 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose')
 
 const dischargeSummarySchema = new mongoose.Schema({
   patientId: {
     type: String,
     required: true
+  },
+  patientDetails: {
+    firstname: {
+    type: String,
+    required: true
+    },
+    lastname: {
+    type: String,
+    required: true
+    },
+    age: {
+    type: Number, 
+    required: true 
+    },
+    department: {
+    type: String,
+    enum: ['Medicine', 'Surgery', 'Orthopedics', 'Pediatrics', 'ENT', 'Ophthalmology', 'Gynecology', 'Dermatology', 'Oncology']
+    }
   },
   doctorId: { 
     type: String,
@@ -42,6 +60,6 @@ const dischargeSummarySchema = new mongoose.Schema({
     notes: String,
     createdAt: {type: Date, default: Date.now}
   }]
-}, { timestamps: true });
+}, { timestamps: true, collection: 'DischargeSummary'});
 
-export const DischargeSummary = mongoose.model('DischargeSummary', dischargeSummarySchema);
+module.exports = mongoose.model('Discharge', dischargeSummarySchema);
