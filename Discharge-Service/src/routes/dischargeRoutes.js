@@ -36,4 +36,10 @@ router.put('/:id',
   dischargeController.appendSummaryReferral
 );
 
+router.put('/:id/signoff',
+  verifyToken,
+  verifyRole(['doctor']),
+  dischargeController.signOffSummary
+);
+
 module.exports = router;

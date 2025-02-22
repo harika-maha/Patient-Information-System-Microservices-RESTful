@@ -3,7 +3,8 @@ const {
   updateDischargeSummary, 
   viewDischargeSummary,
   deleteDischargeSummary,
-  appendReferral
+  appendReferral,
+  signOffDischargeSummary
  } = require('../services/index');
  
  const createSummary = async (req, res) => {
@@ -57,4 +58,16 @@ const viewSummary = async (req, res) => {
   }
  };
 
- module.exports = {createSummary, viewSummary, updateSummary, deleteSummary, appendSummaryReferral}
+const signOffSummary = async (req, res) => {
+  try {
+    const summary = await signOffDischargeSummary(
+      req.params.id,
+      req.user.id
+    );
+    res.json(summary);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+ module.exports = {createSummary, viewSummary, updateSummary, deleteSummary, appendSummaryReferral, signOffSummary}
