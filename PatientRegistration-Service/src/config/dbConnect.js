@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 
+const uri = process.env.URI
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.PATIENT_DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(uri)
     console.log('Connected to Patient Database');
   } catch (error) {
     console.error('Patient Database Connection Error:', error);

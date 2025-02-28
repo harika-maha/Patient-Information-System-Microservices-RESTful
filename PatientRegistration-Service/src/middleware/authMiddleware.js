@@ -13,7 +13,7 @@ patientAuthMiddleware.verifyToken = async (req, res, next) => {
       ? authorizationHeader.split(' ')[1]
       : authorizationHeader;
 
-    const response = await axios.get(process.env.AUTH_SERVICE_URL, {
+    const response = await axios.get(`${process.env.AUTH_SERVICE_URL}/validate-token`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
