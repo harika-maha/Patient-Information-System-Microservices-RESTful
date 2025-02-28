@@ -4,7 +4,6 @@ const {
   viewTreatment,
   deleteTreatment,
   appendPrescription,
-  completeTreatment
 } = require('../services/index');
 
 const createTreatmentRecord = async (req, res) => {
@@ -58,23 +57,10 @@ const deleteTreatmentRecord = async (req, res) => {
   }
 };
 
-const completeTreatmentRecord = async (req, res) => {
-  try {
-    const treatment = await completeTreatment(
-      req.params.id,
-      req.user.id
-    );
-    res.json(treatment);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
 module.exports = { 
   createTreatmentRecord, 
   viewTreatmentRecord, 
   updateTreatmentRecord, 
   deleteTreatmentRecord, 
   appendTreatmentPrescription, 
-  completeTreatmentRecord 
 };

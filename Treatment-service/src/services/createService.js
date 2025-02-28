@@ -22,7 +22,7 @@ const getPatientDetails = async (patientId, authHeader) => {
 };
 
 const createTreatmentRecord = async (patientId, data, userData) => {
-  const { treatmentPlan, prescriptions, referrals } = data;
+  const { diagnosis, treatmentPlan, prescriptions, referrals } = data;
   
   // Fetch patient data from external API
   const patientData = await getPatientDetails(patientId, userData.authHeader);
@@ -36,6 +36,7 @@ const createTreatmentRecord = async (patientId, data, userData) => {
       department: userData.department
     },
     doctorId: userData.id,
+    diagnosis, 
     treatmentPlan,
     prescriptions,
     status: 'ongoing' // Default status for active treatments

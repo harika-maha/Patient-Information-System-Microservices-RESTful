@@ -37,10 +37,4 @@ router.post('/:id/prescription',
   treatmentController.appendTreatmentPrescription
 );
 
-router.put('/:id/complete',
-  verifyToken,
-  verifyRole(['doctor','nurse']),
-  treatmentController.completeTreatmentRecord
-);
-
 module.exports = router;

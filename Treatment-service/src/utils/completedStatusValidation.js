@@ -1,13 +1,7 @@
-const validateDischargeUpdate = (data) => {
-    //fields that can be updated
-    const allowedFields = ['homeCarePlan', 'medications', 'referrals', 'status'];
-    const invalidFields = Object.keys(data).filter(key => !allowedFields.includes(key));
-    
-    if (invalidFields.length > 0) {
-      throw new Error(`Invalid fields: ${invalidFields.join(', ')}`);
+const completedStatusValidation = (discharge) => {
+    if (discharge.status === 'signed') {
+      throw new Error('Cannot modify a signed discharge summary');
     }
   };
-  
-  module.exports = {
-    validateDischargeUpdate
-  };
+
+module.exports = { completedStatusValidation }

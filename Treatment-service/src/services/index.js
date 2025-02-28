@@ -1,14 +1,11 @@
-const { createTreatmentRecord } = require('./createService');
-const { updateTreatmentRecord, appendPrescription } = require('./updateService');
-const { viewTreatmentRecord } = require('./viewService');
-const { deleteTreatmentRecord } = require('./deleteService');
-const { completeTreatmentRecord } = require('./signOffService');
-
+const { createTreatmentRecord: createTreatment } = require('./createService');
+const { updateTreatmentRecord: updateTreatment, appendPrescription } = require('./updateService');
+const { viewTreatmentRecord:viewTreatment } = require('./viewService');
+const { deleteTreatmentRecord: deleteTreatment } = require('./deleteService');
 module.exports = {
-  createTreatmentRecord,
-  updateTreatmentRecord,
-  viewTreatmentRecord,
-  deleteTreatmentRecord, 
-  appendPrescription,
-  completeTreatmentRecord
+  createTreatment,  
+  updateTreatment,
+  viewTreatment,
+  deleteTreatment, 
+  appendPrescription
 };

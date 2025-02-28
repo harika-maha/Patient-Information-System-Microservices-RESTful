@@ -1,6 +1,6 @@
 const Treatment = require('../models/treatmentModel.js');
-const { validateTreatmentUpdate } = require('../utils/completedStatusValidation.js');
-const { completedStatusValidation } = require('../utils/signedStatusValidation.js');
+const { validateTreatmentUpdate } = require('../utils/validateTreatmentUpdate.js');
+const { completedStatusValidation } = require('../utils/completedStatusValidation.js'); 
 
 const appendPrescription = async (patientId, newPrescription, userId) => {
   const treatment = await Treatment.findOne({ patientId: patientId });
