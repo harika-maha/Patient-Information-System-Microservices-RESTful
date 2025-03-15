@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test mocha",
+    "test:unit": "npm test -- --grep 'Unit'",
+    "test:integration": "npm test -- --grep 'Integration'",
     "dev": "nodemon index.js",
     "start": "node index"
   },
@@ -13,11 +15,17 @@
   "description": "",
   "dependencies": {
     "axios": "^1.7.9",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "mocha": "^11.1.0",
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.1.9",
+    "sinon": "^19.0.2"
   }
 }
