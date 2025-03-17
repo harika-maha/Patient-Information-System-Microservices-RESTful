@@ -17,7 +17,8 @@ exports.registerUser = async ({ employeeId,email,username, password, role,firstN
 
 exports.loginUser = async (email, password) => {
   const user = await User.findOne({ email });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+ 
+  if(!user || !await bcrypt.compare(password, user.password)) {
     throw new Error('Invalid credentials');
   }
 
@@ -27,15 +28,15 @@ exports.loginUser = async (email, password) => {
     { expiresIn: '1h' }
   );
 
-  return { token, role: user.role, department: user.department };
+  return { token, role: user.role};
 };
 
 exports.validateToken = async (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 };
 
-exports.deleteUser = async (id) => {
-  const user = await User.findByIdAndDelete(id);
+exports.deleteUser = async (employeeId) => {
+  const user = await User.findOneAndDelete(employeeId);
   if (!user) throw new Error('User not found');
   return user;
 };
