@@ -6,7 +6,7 @@ exports.register = async (req, res) => {
       const user = await authService.registerUser(req.body);
       res.status(201).json({ message: 'User registered successfully', user });
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ error: error.message });
     }
   };
   
@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
       const loginResponse = await authService.loginUser(email, password);
       res.json(loginResponse);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(401).json({ error: error.message });
     }
   };
   exports.validateToken = async (req, res) => {
@@ -28,19 +28,19 @@ exports.register = async (req, res) => {
       const user = await authService.validateToken(token);
       res.json({ user });
     } catch (error) {
-      res.status(401).json({ message: 'Invalid or expired token' });
+      res.status(401).json({ error: 'Invalid or expired token' });
     }
   };
 
   exports.deleteUser = async (req, res) => {
     try {
-      const { id } = req.params;
+      const { employeeId } = req.params;
       const requestingUser = req.user;
   
-      const deletedUser = await authService.deleteUser(id);
+      const deletedUser = await authService.deleteUser(employeeId);
       res.json({ message: 'User deleted successfully', deletedUser });
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ error: error.message });
     }
   };
   

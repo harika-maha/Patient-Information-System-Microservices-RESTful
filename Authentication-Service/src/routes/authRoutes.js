@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
-router.delete('/delete/:id', 
+router.delete('/delete/:employeeId', 
   authMiddleware.verifyToken, 
   verifyRole(['admin']),  // Ensure this function exists and is correctly referenced
   authController.deleteUser
