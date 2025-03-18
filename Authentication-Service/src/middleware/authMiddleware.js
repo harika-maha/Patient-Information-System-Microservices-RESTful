@@ -17,7 +17,7 @@ exports.verifyToken = (request, response, next) => {
       next();
     } catch (error) {
       if (error.name === "TokenExpiredError") {
-        return res.status(401).json({ message: "Token expired. Please log in again." });
+        return response.status(401).json({ message: "Token expired. Please log in again." });
       }
       return response.status(400).json({ message: "Invalid token provided" });
     }
