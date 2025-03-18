@@ -36,7 +36,7 @@ exports.getPatientById = async (req, res) => {
 exports.updatePatientDetails = async (req, res) => {
   try {
     const  patientId = req.params.patientId;
-    const {patientData}=req.body.patientData;
+    const patientData=req.body.patientData;
 
 
     // Validate patientId in the request body

@@ -42,7 +42,7 @@ exports.validateToken = async (token) => {
 };
 
 exports.deleteUser = async (employeeId) => {
-  const user = await User.findOneAndDelete(employeeId);
+  const user = await User.findOneAndDelete({employeeId});
   if (!user) throw new Error('User not found');
   return user;
 };
