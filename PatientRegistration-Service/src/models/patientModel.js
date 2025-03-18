@@ -1,18 +1,31 @@
 const mongoose=require('mongoose')
 
+const validDepartments = [
+  'Medicine', 'Surgery', 'Orthopedics', 'Pediatrics',
+  'ENT', 'Ophthalmology', 'Gynecology', 'Dermatology', 'Oncology'
+];
+
+
 const patientSchema = new mongoose.Schema({
-    patientId: { type: String, unique: true, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    age: { type: Number, required: true },
-    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
+    patientId: { type: String, unique: true, required: [true, 'Patient ID is required'] },
+    firstName: { type: String, required: [true, 'First name is required'] },
+    lastName: { type: String, required: [true, 'Last name is required'] },
+    age: { type: Number,required: [true, 'Age is required'], min: [0, 'Age cannot be negative'] },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: [true, 'Gender is required']  },
     department: {
-        type: String,
-        enum: ['Medicine', 'Surgery', 'Orthopedics', 'Pediatrics', 'ENT', 'Ophthalmology', 'Gynecology', 'Dermatology', 'Oncology']
+      type: String,
+      required: [true, 'Department is required'],
+      validate: {
+          validator: function(value) {
+              return validDepartments.includes(value);
+          },
+          message: `Invalid department. Allowed values are: ${validDepartments.join(', ')}`
       },
-    contactNumber: { type: String, required: true },
-    address: { type: String, required: true },
+    },
+    contactNumber: { type: String, required: [true, 'Contact number is required'],
+      match: [/^\d{10}$/, 'Contact number must be exactly 10 digits'] },
+    address: { type: String, required:[true, 'Address is required']},
     medicalHistory: { type: [String], default: [] }
-  }, { timestamps: true });
+  }, {timestamps: true });
   
   module.exports = mongoose.model('Patient', patientSchema);

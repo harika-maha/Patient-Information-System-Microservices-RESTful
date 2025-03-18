@@ -31,6 +31,12 @@ exports.loginUser = async (email, password) => {
   return { token, role: user.role};
 };
 
+exports.getAllUsers = async () => {
+  const users = await User.find();
+ 
+  return { users};
+};
+
 exports.validateToken = async (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 };
