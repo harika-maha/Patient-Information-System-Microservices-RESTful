@@ -27,6 +27,9 @@ exports.getPatientById = async (req, res) => {
   try {
     const patientId = req.params.patientId;
     const patient = await patientService.getPatientDetailById(patientId);
+    if(!patient){
+      res.status(400).json({ message: 'Patient Not Found'})
+    }
     res.json(patient);
   } catch (error) {
     res.status(400).json({ message: error.message });
