@@ -1,5 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 // const mongoose = require('mongoose');
 
 const dbConnect = require('./src/config/dbConnect');
@@ -8,8 +10,53 @@ const treatmentRoutes = require('./src/routes/treatmentRoutes');
 
 const app = express();
 app.use(express.json());
+// Swagger JSDoc setup
+const swaggerDefinition = {
+    openapi: '3.0.0',
+    info: {
+      title: 'Treatment Service',
+      version: '1.0.0',
+      description: 'This is the API documentation for Treatment service',
+    },
+    components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+        },
+      },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
+    servers: [
+      {
+        url: 'http://localhost:3004/api/treatment',
+      },
+    ],
+  };
+  
+  
+  // Define options for swagger-jsdoc
+  const options = {
+    swaggerDefinition,
+    apis: ['./src/routes/*.js'], // This will include all JavaScript files in the routes folder
+  };
+  
+  // Initialize swagger-jsdoc
+  const swaggerSpec = swaggerJSDoc(options);
+  
+  // Use swagger-ui-express to serve the Swagger docs
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 app.use('/api/treatment', treatmentRoutes);
+
+  // Use swagger-ui-express to serve the Swagger docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const port = process.env.PORT || 5000;
 

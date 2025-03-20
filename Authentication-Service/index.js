@@ -15,7 +15,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
-      title: 'API Documentation',
+      title: 'Authentication Service',
       version: '1.0.0',
       description: 'This is the API documentation for Authentication service',
     },
