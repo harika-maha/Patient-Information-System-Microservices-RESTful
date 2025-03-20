@@ -1,6 +1,51 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 // const mongoose = require('mongoose')
+
+
+// Swagger JSDoc setup
+const swaggerDefinition = {
+    openapi: '3.0.0',
+    info: {
+      title: 'Discharge Service',
+      version: '1.0.0',
+      description: 'This is the API documentation for Discharge service',
+    },
+    components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+        },
+      },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
+    servers: [
+      {
+        url: 'http://localhost:3003/api/discharge',
+      },
+    ],
+  };
+  
+  
+  // Define options for swagger-jsdoc
+  const options = {
+    swaggerDefinition,
+    apis: ['./src/routes/*.js'], // This will include all JavaScript files in the routes folder
+  };
+  
+  // Initialize swagger-jsdoc
+  const swaggerSpec = swaggerJSDoc(options);
+  
+
 
 const dbConnect = require('./src/config/dbConnect')
 // const Discharge = require('./src/models/dischargeModel')
@@ -8,6 +53,9 @@ const dischargeRoutes = require('./src/routes/dischargeRoutes')
 
 const app = express()
 app.use(express.json())
+
+  // Use swagger-ui-express to serve the Swagger docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/discharge', dischargeRoutes)
 
