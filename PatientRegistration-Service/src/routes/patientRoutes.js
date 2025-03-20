@@ -3,7 +3,7 @@
 
 const express = require('express');
 const patientController = require('../controllers/patientController');
-const { verifyToken } = require('../middleware/AuthMiddleware');
+const { verifyToken } = require('../middleware/authMiddleware');
 const { verifyRole } = require('../middleware/roleMiddleware');
 
 const router = express.Router();

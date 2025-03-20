@@ -5,9 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-    "dev": "nodemon index.js",
+    "dev": "nodemon index",
     "run start": "node index",
-    "debug": "node --inspect server.js"
+    "debug": "node --inspect index"
   },
   "author": "",
   "license": "ISC",
