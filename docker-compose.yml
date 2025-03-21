@@ -2,7 +2,7 @@ version: '3'
 
 services:
   authentication-service:
-    build: ./Authentication-Service
+    image: harika1601/f21ao-authentication-service:latest
     ports:
       - "3001:3001"
     environment:
@@ -17,7 +17,7 @@ services:
       - hospital-network
 
   patient-service:
-    build: ./PatientRegistration-Service
+    image: harika1601/f21ao-patient-service:latest
     ports:
       - "3002:3002"
     environment:
@@ -31,7 +31,7 @@ services:
       - hospital-network
 
   discharge-service:
-    build: ./Discharge-Service
+    image: harika1601/f21ao-discharge-service:latest
     ports:
       - "3003:3003"
     environment:
@@ -47,7 +47,7 @@ services:
       - hospital-network
 
   treatment-service:
-    build: ./Treatment-service
+    image: harika1601/f21ao-treatment-service:latest
     ports:
       - "3004:3004"
     environment:
