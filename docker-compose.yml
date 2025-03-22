@@ -1,5 +1,6 @@
 services:
   authentication-service:
+    #build: ./Authentication-Service
     image: bhagya95/Authentication-Service
     ports:
       - "3001:3001"
@@ -10,6 +11,7 @@ services:
       - hospital-network
 
   patient-service:
+    #build: ./PatientRegistration-Service
     image: bhagya95/PatientRegistration-Service
     ports:
       - "3002:3002"
@@ -22,6 +24,7 @@ services:
       - hospital-network
 
   discharge-service:
+    #build: ./Discharge-Service
     image: bhagya95/Discharge-Service
     ports:
       - "3003:3003"
@@ -35,6 +38,7 @@ services:
       - hospital-network
 
   treatment-service:
+    #build: ./Treatment-service
     image: bhagya95/Treatment-service
     ports:
       - "3004:3004"
