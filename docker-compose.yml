@@ -1,29 +1,20 @@
-version: '3'
-
 services:
   authentication-service:
-    image: harika1601/f21ao-authentication-service:latest
+    image: bhagya95/Authentication-Service
     ports:
       - "3001:3001"
-    environment:
-      - PORT=3001
-      - URI=mongodb+srv://harika:harika123@cluster0.ddgyc.mongodb.net/AuthenticationDB?retryWrites=true&w=majority&appName=Cluster0
-      - JWT_SECRET=5dfed57f915dd0bc3b87ea0c3db3c562aa2a69c27e9007d630a008deac56a7ceS
-      - EMAIL_USER=f21aogroup7@gmail.com
-      - EMAIL_PASS=swqjybkvdpncvyqa
-      - AUTH_URL=http://localhost:3000/api/auth
+    env_file:
+      - ./Authentication-Service/.env
     restart: unless-stopped
     networks:
       - hospital-network
 
   patient-service:
-    image: harika1601/f21ao-patient-service:latest
+    image: bhagya95/PatientRegistration-Service
     ports:
       - "3002:3002"
-    environment:
-      - PORT=3002
-      - URI=mongodb+srv://harika:harika123@cluster0.ddgyc.mongodb.net/PatientsDB?retryWrites=true&w=majority&appName=Cluster0
-      - AUTH_SERVICE_URL=http://authentication-service:3001/api/auth
+    env_file:
+      - ./PatientRegistration-Service/.env
     depends_on:
       - authentication-service
     restart: unless-stopped
@@ -31,14 +22,11 @@ services:
       - hospital-network
 
   discharge-service:
-    image: harika1601/f21ao-discharge-service:latest
+    image: bhagya95/Discharge-Service
     ports:
       - "3003:3003"
-    environment:
-      - PORT=3003
-      - URI=mongodb+srv://harika:harika123@cluster0.ddgyc.mongodb.net/DischargeDB?retryWrites=true&w=majority&appName=Cluster0
-      - PATIENT_SERVICE_URL=http://patient-service:3002/api/patients
-      - AUTH_SERVICE_URL=http://authentication-service:3001/api/auth
+    env_file:
+      - ./Discharge-Service/.env
     depends_on:
       - patient-service
       - authentication-service
@@ -47,14 +35,11 @@ services:
       - hospital-network
 
   treatment-service:
-    image: harika1601/f21ao-treatment-service:latest
+    image: bhagya95/Treatment-service
     ports:
       - "3004:3004"
-    environment:
-      - PORT=3004
-      - URI=mongodb+srv://harika:harika123@cluster0.ddgyc.mongodb.net/TreatmentDB?retryWrites=true&w=majority&appName=Cluster0
-      - PATIENT_SERVICE_URL=http://patient-service:3002/api/patients
-      - AUTH_SERVICE_URL=http://authentication-service:3001/api/auth
+    env_file:
+      - ./Treatment-service/.env
     depends_on:
       - authentication-service
       - patient-service

@@ -32,10 +32,10 @@ const swaggerDefinition = {
           bearerAuth: [],
         },
       ],
-    servers: [
-      {
-        url: 'http://localhost:3004/api/treatment',
-      },
+      servers: [
+        {
+          url: process.env.BASE_URL,  // Use environment variable if available
+        },
     ],
   };
   
