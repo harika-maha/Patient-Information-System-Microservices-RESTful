@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: patient-service
-          image: bhagya95/patient-service:latest
+          image: harika1601/f21ao-patient-service:latest
           ports:
             - containerPort: 3003
           env:
@@ -38,5 +38,10 @@ spec:
                 configMapKeyRef:
                   name: patient-service-config
                   key: AUTH_SERVICE_URL
+            - name : BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: patient-service-config
+                  key: BASE_URL
 
                 

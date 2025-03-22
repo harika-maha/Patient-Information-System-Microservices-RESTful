@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: discharge-service
-          image: bhagya95/discharge-service:latest
+          image: harika1601/f21ao-discharge-service:latest
           ports:
             - containerPort: 3003
           env:
@@ -43,5 +43,10 @@ spec:
                 configMapKeyRef:
                   name: discharge-service-config
                   key: PATIENT_SERVICE_URL
+            - name : BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: discharge-service-config
+                  key: BASE_URL
 
                 
