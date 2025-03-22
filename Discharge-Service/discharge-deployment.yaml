@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: discharge-service
 spec:
-  replicas: 2  # Number of replicas (adjust as needed)
+  replicas: 2  # Number of replicas
   selector:
     matchLabels:
-      app.kubernetes.io/name: discharge-service  # Ensure this matches the label in the pod template
+      app.kubernetes.io/name: discharge-service
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: discharge-service  # Same label as the selector
+        app.kubernetes.io/name: discharge-service
     spec:
       containers:
         - name: discharge-service
-          image: bhagya95/discharge-service:latest  # Replace with your Docker Hub image
+          image: bhagya95/discharge-service:latest
           ports:
             - containerPort: 3003
           env:

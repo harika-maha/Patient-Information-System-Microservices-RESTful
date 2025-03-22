@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: patient-service
 spec:
-  replicas: 2  # Number of replicas (adjust as needed)
+  replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: patient-service  # Ensure this matches the label in the pod template
+      app.kubernetes.io/name: patient-service
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: patient-service  # Same label as the selector
+        app.kubernetes.io/name: patient-service
     spec:
       containers:
         - name: patient-service
-          image: bhagya95/patient-service:latest  # Replace with your Docker Hub image
+          image: bhagya95/patient-service:latest
           ports:
             - containerPort: 3003
           env:

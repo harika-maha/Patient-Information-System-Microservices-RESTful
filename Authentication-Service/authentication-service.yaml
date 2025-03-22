@@ -4,9 +4,9 @@ metadata:
   name: authentication-service
 spec:
   selector:
-    app.kubernetes.io/name: authentication-service  # This should match the Deployment label
+    app.kubernetes.io/name: authentication-service
   ports:
     - protocol: TCP
-      port: 3001  # The port that Kubernetes will use to expose the service
-      targetPort: 3001  # The port the container listens on
-  type: NodePort  # This exposes the service on a dynamic port on each node
+      port: 3001
+      targetPort: 3001
+  type: NodePort

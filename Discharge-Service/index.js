@@ -28,10 +28,10 @@ const swaggerDefinition = {
           bearerAuth: [],
         },
       ],
-    servers: [
-      {
-        url: 'http://localhost:3003/api/discharge',
-      },
+      servers: [
+        {
+          url: process.env.BASE_URL,  // Use environment variable if available
+        },
     ],
   };
   
