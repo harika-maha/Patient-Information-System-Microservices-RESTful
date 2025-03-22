@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discharge-service
+spec:
+  replicas: 2  # Number of replicas (adjust as needed)
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: discharge-service  # Ensure this matches the label in the pod template
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: discharge-service  # Same label as the selector
+    spec:
+      containers:
+        - name: discharge-service
+          image: bhagya95/discharge-service:latest  # Replace with your Docker Hub image
+          ports:
+            - containerPort: 3003
+          env:
+            - name: URI
+              valueFrom:
+                secretKeyRef:
+                  name: discharge-service-secret
+                  key: URI
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: discharge-service-secret
+                  key: JWT_SECRET
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: discharge-service-config
+                  key: PORT
+            - name: AUTH_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: discharge-service-config
+                  key: AUTH_SERVICE_URL
+            - name: PATIENT_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: discharge-service-config
+                  key: PATIENT_SERVICE_URL
+
+                
