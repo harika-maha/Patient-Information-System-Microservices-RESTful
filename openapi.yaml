@@ -1,0 +1,422 @@
+openapi: 3.0.0
+info:
+  title: Hospital-Management-System
+  version: 1.0.0
+servers:
+   - url: http://localhost:3001
+   - url: http://localhost:3002
+   - url: http://localhost:3003
+   - url: http://localhost:3004
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Authentication-Service
+  - name: PatientRegistration-Service
+  - name: Discharge Service
+  - name: Treatment Service
+paths:
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication-Service
+      summary: User Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: admin58@gmail.com
+                password: a8@123
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/register:
+    post:
+      tags:
+        - Authentication-Service
+      summary: User Registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                employeeId: BP001
+                username: BP456
+                email: wbmadushani@gmail.com
+                password: bhagy123
+                role: admin
+                firstName: Wayu
+                lastName: Ray
+      security:
+        - noauthAuth: []
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/allUsers:
+    get:
+      tags:
+        - Authentication-Service
+      summary: Get all users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/forgot-password:
+    post:
+      tags:
+        - Authentication-Service
+      summary: Forgot Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: wbmadushani@gmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/reset-password/token=a752f4ca7f9591e954f717b74dfeebe889055c60f32142bf68b34849ca3ad698:
+    post:
+      tags:
+        - Authentication-Service
+      summary: Reset password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                newPassword: test
+                confirmPassword: test
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/auth/deleteUser/Test001:
+    delete:
+      tags:
+        - Authentication-Service
+      summary: Delete User
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/patients/register:
+    post:
+      tags:
+        - PatientRegistration-Service
+      summary: Register-Patient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patientId: P002
+                firstName: Chali
+                lastName: Chek
+                age: 22
+                gender: Female
+                contactNumber: '9712232323'
+                department: Orthopedics
+                address: 123 Main Street, Dubai, UAE
+                medicalHistory:
+                  - Diabetes
+                  - Hypertension
+                complaints:
+                  - headAche
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/patients/all:
+    get:
+      tags:
+        - PatientRegistration-Service
+      summary: Get All Patients
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/patients/P001:
+    get:
+      tags:
+        - PatientRegistration-Service
+      summary: Get Patient Details By Id
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/patients/update/P001:
+    put:
+      tags:
+        - PatientRegistration-Service
+      summary: Update Patient Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patientData:
+                  firstName: Maya
+                  lastName: Chek
+                  age: 22
+                  gender: Female
+                  contactNumber: '9712232323'
+                  department: Orthopedics
+                  address: 123 Main Street, Dubai, UAE
+                  medicalHistory:
+                    - Diabetes
+                    - Hypertension
+                  complaints:
+                    - headAche
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/discharge/P12349:
+    post:
+      tags:
+        - Discharge Service
+      summary: Create Discharge Summary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                homeCarePlan: Rest for 2 weeks, follow up in OPD after 10 days
+                medications:
+                  - name: Paracetamol
+                    dosage: 500mg
+                    frequency: 3 times a day
+                referrals:
+                  - department: Orthopedics
+                    serviceType: Physiotherapy
+                    notes: Need physiotherapy sessions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/discharge/view/P12349:
+    get:
+      tags:
+        - Discharge Service
+      summary: Get Patient Discharge Summary
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/discharge/P12349/referral:
+    post:
+      tags:
+        - Discharge Service
+      summary: Update Referral Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                department: Medicine
+                serviceType: Radiology
+                notes: X-Ray required
+                status: SCHEDULED
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/discharge/api/discharge/P94321:
+    put:
+      tags:
+        - Discharge Service
+      summary: Update Summary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                homeCarePlan: Meditation and Hydration
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/discharge/delete/P94321:
+    delete:
+      tags:
+        - Treatment Service
+      summary: Delete Summary
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/treatment/P94321:
+    post:
+      tags:
+        - Treatment Service
+      summary: Create treatment plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patientId: P12349
+                patientDetails:
+                  firstname: John
+                  lastname: Doe
+                  age: 45
+                  department: Orthopedics
+                doctorId: D5678
+                diagnosis: Fractured hand
+                treatmentPlan: >-
+                  Patient will undergo physiotherapy for eight weeks to regain
+                  mobility.
+                procedures:
+                  - name: Leg Surgery
+                    date: '2025-02-27T10:00:00Z'
+                    outcome: Successful
+                progressNotes:
+                  - note: Patient is responding well to treatment.
+                prescriptions:
+                  - name: Paracetamol
+                    dosage: 500mg
+                    frequency: Twice a day
+                    duration: 5 days
+                  - name: Vitamin D
+                    dosage: 1000 IU
+                    frequency: Once a day
+                    duration: 4 weeks
+                referrals:
+                  - department: Orthopedics
+                    serviceType: Physiotherapy
+                    status: SCHEDULED
+                    notes: Follow-up in 2 weeks.
+                  - department: Medicine
+                    serviceType: Radiology
+                    status: SCHEDULED
+                    notes: Further investigation required.
+                followUpRequired: true
+                treatmentStatus: ongoing
+                doctorNotes: Monitor patient for any signs of infection.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Treatment Service
+      summary: Update Treatment plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                treatmentPlan: 'Updated physiotherapy plan: extended to six weeks.'
+                progressNotes:
+                  - date: '2025-02-28T12:30:00.000Z'
+                    note: >-
+                      Patient showing improved mobility, recommend additional
+                      exercises.
+                prescriptions:
+                  - name: Antibiotics
+                    dosage: 2000mgmg
+                    frequency: Twice a day
+                    duration: 7 days
+                followUpRequired: true
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/treatment/view/P94321:
+    get:
+      tags:
+        - Treatment Service
+      summary: View treatment plan
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/treatment/P12349/referral:
+    post:
+      tags:
+        - Treatment Service
+      summary: Append Prescription plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                department: Medicine
+                serviceType: Radiology
+                notes: X-Ray required
+                status: SCHEDULED
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
