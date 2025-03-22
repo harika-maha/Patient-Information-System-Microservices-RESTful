@@ -12,14 +12,14 @@ const createTreatmentRecord = async (req, res) => {
       id: req.user.id,
       department: req.user.department,
       authHeader: req.headers.authorization
-    };
+};
     const patientId = req.params.id;
     const treatment = await createTreatment(patientId, req.body, userData);
     res.status(201).json(treatment);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+        };
 
 const updateTreatmentRecord = async (req, res) => {
   try {
@@ -28,7 +28,7 @@ const updateTreatmentRecord = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+        };
 
 const appendTreatmentPrescription = async (req, res) => {
   try {

@@ -3,23 +3,38 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "cross-env NODE_ENV=test mocha src/test/unit/**/*.test.js --timeout 10000",
+    "test:integration": "cross-env NODE_ENV=test mocha src/test/integration/**/*.test.js --timeout 10000",
+    "test:watch": "mocha src/test/**/*.test.js --watch --timeout 5000",
+    "test:coverage": "nyc npm test",
     "start": "node index",
-    "dev": "nodemon index",
+    "dev": "nodemon index.js",
     "run start": "node index",
-    "debug": "node --inspect index"
+    "debug": "node --inspect server.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "axios": "^1.7.9",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.13.0",
     "mongoose": "^8.10.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "type-detect": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/chai-as-promised": "^8.0.2",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "mocha": "^11.1.0",
+    "sinon": "^19.0.4"
   }
 }

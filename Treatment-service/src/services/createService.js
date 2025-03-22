@@ -59,4 +59,4 @@ const createTreatmentRecord = async (patientId, data, userData) => {
   }
 };
 
-module.exports = { createTreatmentRecord };
+module.exports = { createTreatmentRecord,getPatientDetails };
