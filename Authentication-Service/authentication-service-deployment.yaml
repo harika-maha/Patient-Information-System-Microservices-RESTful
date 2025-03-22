@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: authentication-service
-          image: bhagya95/authentication-service:latest
+          image: harika1601/f21ao-authentication-service:latest
           ports:
             - containerPort: 3001
           env:
@@ -33,3 +33,8 @@ spec:
                 configMapKeyRef:
                   name: authentication-service-config
                   key: PORT
+            - name : BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: authentication-service-config
+                  key: BASE_URL

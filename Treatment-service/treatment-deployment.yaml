@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: treatment-service
-          image: bhagya95/treatment-service:latest
+          image: harika1601/f21ao-treatment-service:latest
           ports:
             - containerPort: 3003
           env:
@@ -43,5 +43,10 @@ spec:
                 configMapKeyRef:
                   name: treatment-service-config
                   key: AUTH_SERVICE_URL
+            - name : BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: treatment-service-config
+                  key: BASE_URL
 
                 
