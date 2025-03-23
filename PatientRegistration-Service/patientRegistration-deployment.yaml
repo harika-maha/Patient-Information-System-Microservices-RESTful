@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: patient-service
+  namespace: f21ao-namespace
 spec:
   replicas: 2
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: patient-service
-          image: harika1601/f21ao-patient-service:latest
+          image: bhagya95/patient-service:latest
           ports:
             - containerPort: 3003
           env:
