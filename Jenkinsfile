@@ -5,10 +5,9 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
-                withCredentials([string(credentialsId: 'GitHub-Credentials', variable: 'GITHUB_TOKEN')]) {
-                    git branch: 'G7-30-Write-tests-for-treatment-service', 
-                        url: 'https://github.com/harika-maha/F21AO-Group7.git',
-                        credentialsId: 'GitHub-Credentials'
+                withCredentials([string(credentialsId: 'GitHub-Creds', variable: 'GITHUB_TOKEN')]) {
+                    sh 'git clone https://$GITHUB_TOKEN:x-oauth-basic@github.com/harika-maha/F21AO-Group7.git'
+                    sh 'cd F21AO-Group7 && git checkout G7-30-Write-tests-for-treatment-service'
                 }
             }
         }
