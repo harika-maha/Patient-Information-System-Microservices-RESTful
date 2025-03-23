@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
-                git 'https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME.git'
+                git branch: 'G7-30-Write-tests-for-treatment-service', url: 'https://github.com/harika-maha/F21AO-Group7.git'
             }
         }
 
