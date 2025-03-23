@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
-                withCredentials([string(credentialsId: 'GitHub-Creds', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'GitHub-Creds-pipeline', variable: 'GITHUB_TOKEN')]) {
                     sh 'git clone https://$GITHUB_TOKEN@github.com/harika-maha/F21AO-Group7.git'
                     sh 'cd F21AO-Group7 && git checkout G7-30-Write-tests-for-treatment-service'
                 }
@@ -26,7 +26,7 @@ pipeline {
                 sh 'docker-compose build'
             }
         }
-
+        
         stage('Run Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
