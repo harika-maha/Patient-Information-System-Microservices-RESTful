@@ -13,7 +13,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
-                withCredentials([string(credentialsId: 'Github-Creds-pipeline', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'GitHub-Creds-pipeline', variable: 'GITHUB_TOKEN')]) {
                     sh '''
                         git clone https://$GITHUB_TOKEN@github.com/harika-maha/F21AO-Group7.git
                         cd F21AO-Group7
