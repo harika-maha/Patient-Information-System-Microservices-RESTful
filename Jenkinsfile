@@ -14,9 +14,9 @@ pipeline {
                 echo 'Cloning Repository...'
                 withCredentials([string(credentialsId: 'GitHub-Creds-pipeline', variable: 'GITHUB_TOKEN')]) {
                     sh '''
-                    git clone https://$GITHUB_TOKEN@github.com/harika-maha/F21AO-Group7.git
-                    cd F21AO-Group7
-                    git checkout G7-30-Write-tests-for-treatment-service
+                        git clone https://$GITHUB_TOKEN@github.com/harika-maha/F21AO-Group7.git
+                        cd F21AO-Group7
+                        git checkout G7-30-Write-tests-for-treatment-service
                     '''
                 }
             }
@@ -34,11 +34,11 @@ pipeline {
             steps {
                 echo 'Installing Dependencies...'
                 sh '''
-                npm install -g cross-env mocha nyc nodemon
-                cd F21AO-Group7/Authentication-Service && npm install
-                cd ../Discharge-Service && npm install
-                cd ../PatientRegistration-Service && npm install
-                cd ../Treatment-service && npm install
+                    npm install -g cross-env mocha nyc nodemon
+                    cd F21AO-Group7/Authentication-Service && npm install
+                    cd ../Discharge-Service && npm install
+                    cd ../PatientRegistration-Service && npm install
+                    cd ../Treatment-service && npm install
                 '''
             }
         }
@@ -50,15 +50,21 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Unit Tests') {
             steps {
                 echo 'Running Unit Tests for Each Service...'
-                sh '''
-                cd F21AO-Group7/Authentication-Service && npm run test:unit
-                cd ../Discharge-Service && npm run test:unit || true
-                cd ../PatientRegistration-Service && npm run test:unit || true
-                cd ../Treatment-service && npm run test:unit || true
-                '''
+                dir('F21AO-Group7/Authentication-Service') {
+                    sh 'npm run test:unit || true'
+                }
+                dir('F21AO-Group7/Discharge-Service') {
+                    sh 'npm run test:unit || true'
+                }
+                dir('F21AO-Group7/PatientRegistration-Service') {
+                    sh 'npm run test:unit || true'
+                }
+                dir('F21AO-Group7/Treatment-service') {
+                    sh 'npm run test:unit || true'
+                }
             }
         }
 
@@ -73,10 +79,8 @@ pipeline {
             steps {
                 echo 'Pushing Docker Images to DockerHub...'
                 withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh '''
-                    docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-                    docker-compose push
-                    '''
+                    sh 'docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'docker-compose push'
                 }
             }
         }
@@ -92,7 +96,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up Docker...'
-            sh 'docker-compose down || true'
+            sh 'docker-compose down'
         }
     }
 }
