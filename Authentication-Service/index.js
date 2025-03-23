@@ -17,7 +17,7 @@ const swaggerDefinition = {
     info: {
       title: 'Authentication Service',
       version: '1.0.0',
-      description: 'This is the API documentation for Authentication service-Check Deployment',
+      description: 'This is the API documentation for Authentication service-Check Deployment Test',
     },
     components: {
         securitySchemes: {
