@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: patient-service
-          image: bhagya95/patient-service:latest
+          image: harika1601/f21ao-patient-service:latest
           ports:
             - containerPort: 3003
           env:
