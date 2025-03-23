@@ -2,6 +2,13 @@ pipeline {
     agent any 
 
     stages {
+        stage('Cleanup Old Repo') {
+            steps {
+                echo 'Cleaning up old repository...'
+                sh 'rm -rf F21AO-Group7'
+            }
+        }
+
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
@@ -28,6 +35,7 @@ pipeline {
                 echo 'Installing Dependencies...'
                 sh '''
                     npm install -g cross-env mocha nyc nodemon
+                    cd F21AO-Group7
                     npm install
                 '''
             }
