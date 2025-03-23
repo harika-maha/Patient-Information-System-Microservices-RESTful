@@ -5,7 +5,11 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
-                git branch: 'G7-30-Write-tests-for-treatment-service', url: 'https://github.com/harika-maha/F21AO-Group7.git'
+                withCredentials([string(credentialsId: 'GitHub-Credentials', variable: 'GITHUB_TOKEN')]) {
+                    git branch: 'G7-30-Write-tests-for-treatment-service', 
+                        url: 'https://github.com/harika-maha/F21AO-Group7.git',
+                        credentialsId: 'GitHub-Credentials'
+                }
             }
         }
 
@@ -18,12 +22,9 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Installing dependencies and running tests...'
-                sh '''
-                   cd Treatment-service
-                   npm install
-                   npm test
-                '''
+                echo 'Running Unit and Integration Tests...'
+                sh 'npm install'
+                sh 'npm test'
             }
         }
 
@@ -38,10 +39,8 @@ pipeline {
             steps {
                 echo 'Pushing Docker Images to DockerHub...'
                 withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh '''
-                        docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-                        docker-compose push
-                    '''
+                    sh 'docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'docker-compose push'
                 }
             }
         }
