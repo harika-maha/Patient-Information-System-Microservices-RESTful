@@ -18,9 +18,12 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Running Unit and Integration Tests...'
-                sh 'npm install'
-                sh 'npm test'
+                echo 'Installing dependencies and running tests...'
+                sh '''
+                   cd Treatment-service
+                   npm install
+                   npm test
+                '''
             }
         }
 
@@ -35,8 +38,10 @@ pipeline {
             steps {
                 echo 'Pushing Docker Images to DockerHub...'
                 withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh 'docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-                    sh 'docker-compose push'
+                    sh '''
+                        docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+                        docker-compose push
+                    '''
                 }
             }
         }
