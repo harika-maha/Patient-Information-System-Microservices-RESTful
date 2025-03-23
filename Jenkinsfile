@@ -2,6 +2,7 @@ pipeline {
     agent any 
 
     stages {
+        
         stage('Cleanup Old Repo') {
             steps {
                 echo 'Cleaning up old repository...'
@@ -12,7 +13,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning Repository...'
-                withCredentials([string(credentialsId: 'GitHub-Creds-pipeline', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'Github-Creds-pipeline', variable: 'GITHUB_TOKEN')]) {
                     sh '''
                         git clone https://$GITHUB_TOKEN@github.com/harika-maha/F21AO-Group7.git
                         cd F21AO-Group7
@@ -29,18 +30,28 @@ pipeline {
                 sh 'docker-compose --version'
             }
         }
-
+        
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies...'
                 sh '''
                     npm install -g cross-env mocha nyc nodemon
-                    cd F21AO-Group7
+                    
+                    cd F21AO-Group7/Authentication-Service
+                    npm install
+
+                    cd ../Discharge-Service
+                    npm install
+
+                    cd ../PatientRegistration-Service
+                    npm install
+
+                    cd ../Treatment-service
                     npm install
                 '''
             }
         }
-
+        
         stage('Build') {
             steps {
                 echo 'Building Docker Containers...'
@@ -51,7 +62,12 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                sh 'npm test'
+                sh '''
+                    cd F21AO-Group7/Authentication-Service && npm test
+                    cd ../Discharge-Service && npm test
+                    cd ../PatientRegistration-Service && npm test
+                    cd ../Treatment-service && npm test
+                '''
             }
         }
 
@@ -66,8 +82,10 @@ pipeline {
             steps {
                 echo 'Pushing Docker Images to DockerHub...'
                 withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh 'docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-                    sh 'docker-compose push'
+                    sh '''
+                        docker login -u YOUR_DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+                        docker-compose push
+                    '''
                 }
             }
         }
