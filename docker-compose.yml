@@ -1,7 +1,7 @@
 services:
   authentication-service:
     #build: ./Authentication-Service
-    image: bhagya95/f21ao-authentication-service:latest
+    image: bhagya95/f21ao-group7-authentication-service:latest
     ports:
       - "3001:3001"
     env_file:
@@ -12,7 +12,7 @@ services:
 
   patient-service:
     #build: ./PatientRegistration-Service
-    image: bhagya95/f21ao-patient-service:latest
+    image: bhagya95/f21ao-group7--patient-service:latest
     ports:
       - "3002:3002"
     env_file:
@@ -25,7 +25,7 @@ services:
 
   discharge-service:
     #build: ./Discharge-Service
-    image: bhagya95/f21ao-discharge-service:latest
+    image: bhagya95/f21ao-group7-discharge-service:latest
     ports:
       - "3003:3003"
     env_file:
@@ -39,7 +39,7 @@ services:
 
   treatment-service:
     #build: ./Treatment-service
-    image: bhagya95/f21ao-treatment-service:latest
+    image: bhagya95/f21ao-group7-treatment-service:latest
     ports:
       - "3004:3004"
     env_file:

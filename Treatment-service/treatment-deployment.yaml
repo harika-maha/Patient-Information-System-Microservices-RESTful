@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: treatment-service
-          image: harika1601/f21ao-treatment-service:latest
+          image: bhagya95/f21ao-group7-treatment-service:latest
           ports:
             - containerPort: 3003
           env:

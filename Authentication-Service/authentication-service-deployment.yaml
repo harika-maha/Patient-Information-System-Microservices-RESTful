@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: authentication-service
-          image: harika1601/f21ao-authentication-service:latest 
+          image: bhagya95/f21ao-group7-authentication-service:latest 
           ports:
             - containerPort: 3001
           env:
