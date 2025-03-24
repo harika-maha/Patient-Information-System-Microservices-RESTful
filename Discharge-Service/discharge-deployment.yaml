@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: discharge-service
+  namespace: f21ao-namespace
   
 spec:
   replicas: 2  # Number of replicas
@@ -19,21 +20,21 @@ spec:
           ports:
             - containerPort: 3003
           env:
-            - name: URI
+            - name: DISCHARGE_DB_URI
               valueFrom:
                 secretKeyRef:
                   name: discharge-service-secret
-                  key: URI
+                  key: DISCHARGE_DB_URI
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: discharge-service-secret
                   key: JWT_SECRET
-            - name: PORT
+            - name: DISCHARGE_PORT
               valueFrom:
                 configMapKeyRef:
                   name: discharge-service-config
-                  key: PORT
+                  key: DISCHARGE_PORT
             - name: AUTH_SERVICE_URL
               valueFrom:
                 configMapKeyRef:
@@ -44,10 +45,10 @@ spec:
                 configMapKeyRef:
                   name: discharge-service-config
                   key: PATIENT_SERVICE_URL
-            - name : BASE_URL
+            - name : DISCHARGE_BASE_URL
               valueFrom:
                 configMapKeyRef:
                   name: discharge-service-config
-                  key: BASE_URL
+                  key: DISCHARGE_BASE_URL
 
                 

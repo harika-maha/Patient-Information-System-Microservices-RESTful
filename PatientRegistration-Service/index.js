@@ -36,7 +36,7 @@ const swaggerDefinition = {
       ],
       servers: [
         {
-          url: process.env.BASE_URL,  // Use environment variable if available
+          url: process.env.PATIENT_BASE_URL,  // Use environment variable if available
         },
     ],
   };
@@ -58,5 +58,5 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/patients', patientRoutes);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PATIENT_PORT || 5001;
 app.listen(PORT, () => console.log(`Patient Service running on port ${PORT}`));

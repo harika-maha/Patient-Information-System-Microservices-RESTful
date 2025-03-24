@@ -30,7 +30,7 @@ const swaggerDefinition = {
       ],
       servers: [
         {
-          url: process.env.BASE_URL,  // Use environment variable if available
+          url: process.env.DISCHARGE_BASE_URL,  // Use environment variable if available
         },
     ],
   };
@@ -59,7 +59,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/discharge', dischargeRoutes)
 
-const port = process.env.PORT
+const port = process.env.DISCHARGE_PORT
 
 
 

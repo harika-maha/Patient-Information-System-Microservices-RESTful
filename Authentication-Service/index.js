@@ -6,7 +6,7 @@ const dotenv = require("dotenv").config()
 const dbConnect = require("./src/config/dbConnect")
 
 
-const port = process.env.PORT
+const port = process.env.AUTH_PORT
 const app = express()
 
 const authRoutes = require('./src/routes/authRoutes');
@@ -35,7 +35,7 @@ const swaggerDefinition = {
       ],
       servers: [
         {
-          url: process.env.BASE_URL,  // Use environment variable if available
+          url: process.env.AUTH_BASE_URL,  // Use environment variable if available
         },
     ],
   };

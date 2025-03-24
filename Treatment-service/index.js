@@ -34,7 +34,7 @@ const swaggerDefinition = {
       ],
       servers: [
         {
-          url: process.env.BASE_URL,  // Use environment variable if available
+          url: process.env.TREATMENT_BASE_URL,  // Use environment variable if available
         },
     ],
   };
@@ -58,7 +58,7 @@ app.use('/api/treatment', treatmentRoutes);
   // Use swagger-ui-express to serve the Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-const port = process.env.PORT || 5000;
+const port = process.env.TREATMENT_PORT || 5000;
 
 const start = async () => {
     try {

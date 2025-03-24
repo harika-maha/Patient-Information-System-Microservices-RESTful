@@ -17,23 +17,23 @@ spec:
         - name: treatment-service
           image: bhagya95/f21ao-group7-treatment-service:latest
           ports:
-            - containerPort: 3003
+            - containerPort: 3004
           env:
-            - name: URI
+            - name: TREATMENT_DB_URI
               valueFrom:
                 secretKeyRef:
                   name: treatment-service-secret
-                  key: URI
+                  key: TREATMENT_DB_URI
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: treatment-service-secret
                   key: JWT_SECRET
-            - name: PORT
+            - name: TREATMENT_PORT
               valueFrom:
                 configMapKeyRef:
                   name: treatment-service-config
-                  key: PORT
+                  key: TREATMENT_PORT
             - name: AUTH_SERVICE_URL
               valueFrom:
                 configMapKeyRef:
@@ -44,10 +44,10 @@ spec:
                 configMapKeyRef:
                   name: treatment-service-config
                   key: AUTH_SERVICE_URL
-            - name : BASE_URL
+            - name : TREATMENT_BASE_URL
               valueFrom:
                 configMapKeyRef:
                   name: treatment-service-config
-                  key: BASE_URL
+                  key: TREATMENT_BASE_URL
 
                 

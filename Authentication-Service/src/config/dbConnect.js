@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const dotenv = require("dotenv").config()
 
-const uri = process.env.URI
+const uri = process.env.AUTH_DB_URI
 
 const dbConnect = async () => {
     try{

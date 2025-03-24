@@ -15,27 +15,27 @@ spec:
     spec:
       containers:
         - name: authentication-service
-          image: bhagya95/f21ao-group7-authentication-service:latest 
+          image: bhagya95/f21ao-group7-authentication-service:latest
           ports:
             - containerPort: 3001
           env:
-            - name: URI
+            - name: AUTH_DB_URI
               valueFrom:
                 secretKeyRef:
                   name: authentication-service-secret
-                  key: URI
+                  key: AUTH_DB_URI
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: authentication-service-secret
                   key: JWT_SECRET
-            - name: PORT
+            - name: AUTH_PORT
               valueFrom:
                 configMapKeyRef:
                   name: authentication-service-config
-                  key: PORT
-            - name : BASE_URL
+                  key: AUTH_PORT
+            - name : AUTH_BASE_URL
               valueFrom:
                 configMapKeyRef:
                   name: authentication-service-config
-                  key: BASE_URL
+                  key: AUTH_BASE_URL

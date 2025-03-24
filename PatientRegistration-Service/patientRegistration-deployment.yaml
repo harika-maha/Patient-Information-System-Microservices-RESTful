@@ -17,32 +17,32 @@ spec:
         - name: patient-service
           image: bhagya95/f21ao-group7-patient-service:latest
           ports:
-            - containerPort: 3003
+            - containerPort: 3002
           env:
-            - name: URI
+            - name: PATIENT_DB_URI
               valueFrom:
                 secretKeyRef:
                   name: patient-service-secret
-                  key: URI
+                  key: PATIENT_DB_URI
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: patient-service-secret
                   key: JWT_SECRET
-            - name: PORT
+            - name: PATIENT_PORT
               valueFrom:
                 configMapKeyRef:
                   name: patient-service-config
-                  key: PORT
+                  key: PATIENT_PORT
             - name: AUTH_SERVICE_URL
               valueFrom:
                 configMapKeyRef:
                   name: patient-service-config
                   key: AUTH_SERVICE_URL
-            - name : BASE_URL
+            - name : PATIENT_BASE_URL
               valueFrom:
                 configMapKeyRef:
                   name: patient-service-config
-                  key: BASE_URL
+                  key: PATIENT_BASE_URL
 
                 
