@@ -2,3 +2,5 @@
 
 # Setup Jenkins for automate build
 # Poll SCM
+
+# check Git Trigger 
