@@ -3,5 +3,5 @@
 # Setup Jenkins for automate build
 # Poll SCM
 
-# check Git Trigg
+# check Git Trigger
 # Make change to check pipeline
