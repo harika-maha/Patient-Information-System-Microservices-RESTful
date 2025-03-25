@@ -4,4 +4,4 @@
 # Poll SCM
 
 # check Git Trigg
-# MAke change to check pipeline
+# Make change to check pipeline
